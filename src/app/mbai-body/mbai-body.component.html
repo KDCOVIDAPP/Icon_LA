@@ -5,14 +5,16 @@
     <div class="dashboard-card-Acc">
       <!-- <i class="fa fa-thermometer-empty fa-1x cardPic dash-icon-count" [ngStyle]="{'color': 'red'}" aria-hidden="true"></i>
       </i> -->
-      <img width="50" alt="thermometer" src="./assets/images/thermo.png" />
+      <img width="40" style="padding: 6px 0px;" alt="thermometer" src="./assets/images/thermo.png" />
       <div class="dashboard-card-Acc-head">Daily Health Questionnaire</div>
 
 
     </div>
   </div>
 
-  <form class="formMargin" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate *ngIf="locations.length > 0"> <!--*ngIf="locations.length > 0"-->
+  <form class="formMargin" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate
+    *ngIf="locations.length > 0">
+    <!--*ngIf="locations.length > 0"-->
     <div class="form-group">
       <label for="firstName">First Name</label>
       <input type="text" class="form-control" placeholder="First Name" name="firstName"
@@ -184,7 +186,8 @@
         <p>Value: <span>{{userInputs.rating}}</span></p> -->
 
         <!-- <ngx-slider [(value)]="value" [options]="options"></ngx-slider> -->
-        <ng5-slider name="rating" [(value)]="value" [(ngModel)]="userInputs.rating" [options]="options" style="margin-bottom: 4rem;"></ng5-slider>
+        <ng5-slider name="rating" [(value)]="value" [(ngModel)]="userInputs.rating" [options]="options"
+          style="margin-bottom: 4rem;"></ng5-slider>
       </div>
     </div>
 
@@ -224,9 +227,13 @@
     <div class="qrUserValues">
       <p>Name : {{qrData.employeeName}}</p>
       <p>Status : {{qrData.isCleared ? 'Cleared' : 'Not Cleared'}}</p>
-      <p *ngIf="qrData.isCleared">Valid Till : {{qrData.validity}}</p>
-      <button type="button" class="btn btn-primary custom-save" (click)="downloadjpg()">Save To Gallery</button>
+      <p>Valid Till : {{qrData.validity}}</p>
+
     </div>
+  </div>
+
+  <div class="saveTo">
+    <button type="button" class="btn btn-primary custom-save" (click)="downloadjpg()">Save To Gallery</button>
   </div>
   <div id="download" style="display: none;">
     <img #canvas>

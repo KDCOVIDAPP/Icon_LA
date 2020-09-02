@@ -27,16 +27,16 @@ export class MbaiBodyComponent implements OnInit {
   options: Options = {
     showTicksValues: true,
     stepsArray: [
-      {value: 1, legend: 'Not Comfortable'},
-      {value: 2},
-      {value: 3},
-      {value: 4},
-      {value: 5},
-      {value: 6},
-      {value: 7},
-      {value: 8},
-      {value: 9},
-      {value: 10, legend: 'Comfortable'}
+      { value: 1, legend: 'Not Comfortable' },
+      { value: 2 },
+      { value: 3 },
+      { value: 4 },
+      { value: 5 },
+      { value: 6 },
+      { value: 7 },
+      { value: 8 },
+      { value: 9 },
+      { value: 10, legend: 'Comfortable' }
     ]
   };
   questionire = {
@@ -57,7 +57,7 @@ export class MbaiBodyComponent implements OnInit {
   myRange: ElementRef;
   qrData: any;
   qrDataToDisplay: string;
-  error:boolean = false;
+  error: boolean = false;
   constructor(private queSer: QuestionnaireService
   ) {
   }
@@ -98,8 +98,8 @@ export class MbaiBodyComponent implements OnInit {
         console.log(res);
         this.qrData = res;
 
-        var actualDate = this.qrData.validity + ' UTC';
-        var convertedDate = new Date(actualDate);
+        var actualDate = new Date(this.qrData.validity);
+        var  convertedDate = new Date(Date.UTC(actualDate.getFullYear(), actualDate.getMonth(), actualDate.getDate(), actualDate.getHours(), actualDate.getMinutes(), actualDate.getSeconds()))
         var convertedToBrowserDate = convertedDate.toLocaleString() + ' ' + this.tzAbbr(convertedDate);
         this.qrData.validity = convertedToBrowserDate;
         let status = this.qrData.isCleared ? 'Cleared' : 'Not Cleared'
