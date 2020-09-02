@@ -1,0 +1,235 @@
+<div *ngIf="!qrCodeScanner" class="content">
+
+
+  <div class="cards">
+    <div class="dashboard-card-Acc">
+      <!-- <i class="fa fa-thermometer-empty fa-1x cardPic dash-icon-count" [ngStyle]="{'color': 'red'}" aria-hidden="true"></i>
+      </i> -->
+      <img width="50" alt="thermometer" src="./assets/images/thermo.png" />
+      <div class="dashboard-card-Acc-head">Daily Health Questionnaire</div>
+
+
+    </div>
+  </div>
+
+  <form class="formMargin" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate *ngIf="locations.length > 0"> <!--*ngIf="locations.length > 0"-->
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" placeholder="First Name" name="firstName"
+        [(ngModel)]="userInputs.firstName" #firstName="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required />
+      <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
+        <div *ngIf="firstName.errors.required">First Name is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" placeholder="Last Name" name="lastName" [(ngModel)]="userInputs.lastName"
+        #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required />
+      <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
+        <div *ngIf="lastName.errors.required">Last Name is required</div>
+      </div>
+    </div>
+    <!-- <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input type="number" class="form-control" placeholder="Phone Number" name="phoneNumber" maxlength="10"
+        minlength="10" [(ngModel)]="userInputs.phoneNumber" #phoneNumber="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && phoneNumber.invalid }" required />
+      <div *ngIf="f.submitted && phoneNumber.invalid" class="invalid-feedback">
+        <div *ngIf="phoneNumber.errors.required ">Phone Number is required</div>
+      </div>
+    </div> -->
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <!-- <input type="number" class="form-control" placeholder="Phone Number" name="phoneNumber" maxlength="10"
+        minlength="10" [(ngModel)]="userInputs.phoneNumber" #phoneNumber="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && phoneNumber.invalid }" required /> -->
+      <select class="form-control" placeholder="Location" name="locationId" [(ngModel)]="userInputs.locationId"
+        #locationId="ngModel" [ngClass]="{ 'is-invalid': f.submitted && locationId.invalid }" required>
+        <option hidden [ngValue]="undefined" selected>Select Location</option>
+        <option *ngFor="let loc  of locations" [value]="loc.id">{{loc.locationName}}</option>
+      </select>
+      <div *ngIf="f.submitted && locationId.invalid" class="invalid-feedback">
+        <div *ngIf="locationId.errors.required ">Location is required</div>
+        <!-- <div *ngIf="userInputs.phoneNumber.length != 10">phoneNumber must be a valid phoneNumber address</div> -->
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Have you tested positive or otherwise been diagnosed with COVID-19? </label>
+      <div class="row check-css">
+        <div class="form-check check-align">
+          <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques1" #ques1="ngModel" name="ques1"
+            id="yes" value="yes">
+          <label class="form-check-label" for="yes">
+            Yes
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques1" #ques1="ngModel" name="ques1"
+            id="no" value="no">
+          <label class="form-check-label" for="no">
+            No
+          </label>
+        </div>
+      </div>
+      <div class="invalid-check" *ngIf="ques1.value == null && f.submitted">
+        <p>Please select a value</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Have you been tested for COVID-19 and are awaiting your tested results?</label>
+      <div class="row check-css">
+        <div class="form-check check-align">
+          <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques2" #ques2="ngModel" name="ques2"
+            id="yes" value="yes">
+          <label class="form-check-label" for="yes">
+            Yes
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques2" #ques2="ngModel" name="ques2"
+            id="no" value="no">
+          <label class="form-check-label" for="no">
+            No
+          </label>
+        </div>
+      </div>
+      <div class="invalid-check" *ngIf="ques2.value == null && f.submitted">
+        <p>Please select a value</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Have you had any of these symptoms in the past 14 days (SOURCE : CDC)?
+        <br>FEVER, COUGH, SHORTNESS OF BREATH, CHILLS,MUSCLE ACHE, LOSS OF SMELL OR TASTE, HEADACHE OR SORE
+        THROAT</label>
+      <div class="row check-css">
+        <div class="form-check check-align">
+          <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques3" #ques3="ngModel" name="ques3"
+            id="yes" value="yes">
+          <label class="form-check-label" for="yes">
+            Yes
+          </label>
+        </div>
+        <div class="form-check ">
+          <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques3" #ques3="ngModel" name="ques3"
+            id="no" value="no">
+          <label class="form-check-label" for="no">
+            No
+          </label>
+        </div>
+      </div>
+      <div class="invalid-check" *ngIf="ques3.value == null && f.submitted">
+        <p>Please select a value</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Have you been in contact with anyone displaying COVID-19 symptoms or confirmed to be COVID-19 positive
+        within the last 14 days?</label>
+      <div class="row check-css">
+        <div class="form-check check-align">
+          <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques4" #ques4="ngModel" name="ques4"
+            id="yes" value="yes">
+          <label class="form-check-label" for="yes">
+            Yes
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques4" #ques4="ngModel" name="ques4"
+            id="no" value="no">
+          <label class="form-check-label" for="no">
+            No
+          </label>
+        </div>
+      </div>
+      <div class="invalid-check" *ngIf="ques4.value == null && f.submitted">
+        <p>Please select a value</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Do you agree to abide by Nike's safety precautions including but not limited to social distancing, wearing
+        face coverings and hand sanitizing?</label>
+      <div class="row check-css">
+        <div class="form-check check-align">
+          <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques5" #ques5="ngModel" name="ques5"
+            id="yes" value="yes">
+          <label class="form-check-label" for="yes">
+            Yes
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques5" #ques5="ngModel" name="ques5"
+            id="no" value="no">
+          <label class="form-check-label" for="no">
+            No
+          </label>
+        </div>
+      </div>
+      <div class="invalid-check" *ngIf="ques5.value == null && f.submitted">
+        <p>Please select a value</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>How comfortable do you feel working in today's environment and the precautions Nike has put in
+        place?</label>
+      <div class="slidecontainer">
+        <!-- <label> Not Comfortable</label>
+        <input type="range" min="1" max="10" value="5" class="slider" [(ngModel)]="userInputs.rating" #myRange
+          name="rating" (click)="sliderRange($event)">
+        <label>Comfortable</label>
+        <p>Value: <span>{{userInputs.rating}}</span></p> -->
+
+        <!-- <ngx-slider [(value)]="value" [options]="options"></ngx-slider> -->
+        <ng5-slider name="rating" [(value)]="value" [(ngModel)]="userInputs.rating" [options]="options" style="margin-bottom: 4rem;"></ng5-slider>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Suggestions</label>
+      <textarea type="text" maxlength="50" class="form-control" placeholder="Suggestions" name="suggestions"
+        [(ngModel)]="userInputs.suggestions" #suggestions="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && suggestions.invalid }"></textarea>
+      <div *ngIf="f.submitted && suggestions.invalid" class="invalid-feedback">
+        <div *ngIf="suggestions.errors.required ">suggestions is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-primary custom-btn custom-primary" [disabled]="isSubmitted">Submit</button>
+    </div>
+  </form>
+
+  <div *ngIf="error">
+    <p class="error">Failed to fetch location details, Please try again later..!</p>
+  </div>
+</div>
+<div *ngIf="qrCodeScanner">
+  <!-- <button type="button" class="btn btn-primary custom-save" (click)="downloadpng()">Save To Gallery</button> -->
+
+
+  <div #screen class="content" style="align-items: center;">
+    <div style="text-align: center;" *ngIf="qrData.isCleared">
+      <i class="fa fa-check cleared-css" aria-hidden="true"></i>
+      <h2 class="cleared-text">Cleared</h2>
+    </div>
+    <div style="text-align: center;" *ngIf="!qrData.isCleared">
+      <i class="fa fa-times Notcleared-css" aria-hidden="true"></i>
+      <h2 class="notCleared-text">Not Cleared</h2>
+    </div>
+    <qrcode [qrdata]="qrDataToDisplay" size="180" errorCorrectionLevel="'M'"></qrcode>
+    <div class="qrUserValues">
+      <p>Name : {{qrData.employeeName}}</p>
+      <p>Status : {{qrData.isCleared ? 'Cleared' : 'Not Cleared'}}</p>
+      <p *ngIf="qrData.isCleared">Valid Till : {{qrData.validity}}</p>
+      <button type="button" class="btn btn-primary custom-save" (click)="downloadjpg()">Save To Gallery</button>
+    </div>
+  </div>
+  <div id="download" style="display: none;">
+    <img #canvas>
+    <a #downloadLink></a>
+  </div>
+</div>
