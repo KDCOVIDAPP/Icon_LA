@@ -72,6 +72,9 @@ export class MbaiBodyComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
     console.log('SUCCESS!!', this.userInputs);
+    let date = new Date();
+    let dateTime = new Date(new Date(date).getTime() + 60 * 60 * 24 * 1000);
+    let shortTimeZone = this.tzAbbr(dateTime);
 
     var req = {
       "accountId": environment.accountId,
@@ -80,7 +83,8 @@ export class MbaiBodyComponent implements OnInit {
       "lastName": this.userInputs.lastName,
       "phoneNumber": this.userInputs.phoneNumber,
       "rating": this.userInputs.rating,
-      "suggestions": this.userInputs.suggestions
+      "suggestions": this.userInputs.suggestions,
+      //"userTimeZone": dateTime.toString()
     };
     let questionResponse = [];
     Object.keys(this.questionire).forEach(q => {
@@ -98,10 +102,10 @@ export class MbaiBodyComponent implements OnInit {
         console.log(res);
         this.qrData = res;
 
-        var actualDate = new Date(this.qrData.validity);
-        var  convertedDate = new Date(Date.UTC(actualDate.getFullYear(), actualDate.getMonth(), actualDate.getDate(), actualDate.getHours(), actualDate.getMinutes(), actualDate.getSeconds()))
-        var convertedToBrowserDate = convertedDate.toLocaleString() + ' ' + this.tzAbbr(convertedDate);
-        this.qrData.validity = convertedToBrowserDate;
+        // var actualDate = new Date(this.qrData.validity);
+        // var  convertedDate = new Date(Date.UTC(actualDate.getFullYear(), actualDate.getMonth(), actualDate.getDate(), actualDate.getHours(), actualDate.getMinutes(), actualDate.getSeconds()))
+        // var convertedToBrowserDate = convertedDate.toLocaleString() + ' ' + this.tzAbbr(convertedDate);
+        this.qrData.validity = dateTime.toLocaleString() + ' ' + shortTimeZone;
         let status = this.qrData.isCleared ? 'Cleared' : 'Not Cleared'
         this.qrDataToDisplay = 'Employee Name : ' + this.qrData.employeeName + ', \n' + 'Status : ' + status + ', \n' + 'Valid till : ' + this.qrData.validity;
         this.qrCodeScanner = true
@@ -163,8 +167,8 @@ export class MbaiBodyComponent implements OnInit {
   downloadjpg() {
     html2canvas(this.screen.nativeElement).then(canvas => {
       this.canvas.nativeElement.src = canvas.toDataURL();
-      this.downloadLink.nativeElement.href = canvas.toDataURL('image/jpg');
-      this.downloadLink.nativeElement.download = 'MBAI-Qr-scan.jpg';
+      this.downloadLink.nativeElement.href = canvas.toDataURL('image/jpeg');
+      this.downloadLink.nativeElement.download = 'MBAI-Qr-scan';
       this.downloadLink.nativeElement.click();
     });
   }
@@ -184,15 +188,6 @@ export class MbaiBodyComponent implements OnInit {
       // Daylight Time" instead of "CDT")
       tzAbbr = tzAbbr[1].match(/[A-Z]/g).join("");
     }
-
-    // Uncomment these lines to return a GMT offset for browsers
-    // that don't include the user's zone abbreviation (e.g.,
-    // "GMT-0500".) I prefer to have `null` in this case, but
-    // you may not!
-    // First seen on: http://stackoverflow.com/a/12496442
-    // if (!tzAbbr && /(GMT\W*\d{4})/.test(dateString)) {
-    // 	return RegExp.$1;
-    // }
 
     return tzAbbr;
   };
