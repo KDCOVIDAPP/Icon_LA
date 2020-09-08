@@ -23,11 +23,12 @@ export class MbaiBodyComponent implements OnInit {
   public myAngularxQrCode: string = null;
   public qrCodeScanner: boolean = false;
   public qrCodeCleared: boolean = false;
-  value: number = 5;
+  value: number;
   options: Options = {
     showTicksValues: true,
     stepsArray: [
-      { value: 1, legend: 'Not Comfortable' },
+      { value: 0, legend: 'Not Comfortable' },
+      { value: 1},
       { value: 2 },
       { value: 3 },
       { value: 4 },
@@ -62,7 +63,7 @@ export class MbaiBodyComponent implements OnInit {
   ) {
   }
   ngOnInit() {
-    this.userInputs.rating = 5;
+    // this.userInputs.rating = 5;
     this.getLocations();
   }
   sliderRange(eve) {

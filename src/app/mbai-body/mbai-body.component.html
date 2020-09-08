@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <form class="formMargin" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate
+  <form class="formMargin" name="form" (ngSubmit)="f.form.valid && rating.value != 0 && onSubmit()" #f="ngForm" novalidate
     *ngIf="locations.length > 0">
     <!--*ngIf="locations.length > 0"-->
     <div class="form-group">
@@ -186,8 +186,12 @@
         <p>Value: <span>{{userInputs.rating}}</span></p> -->
 
         <!-- <ngx-slider [(value)]="value" [options]="options"></ngx-slider> -->
-        <ng5-slider name="rating" [(value)]="value" [(ngModel)]="userInputs.rating" [options]="options"
+        <ng5-slider #rating="ngModel" name="rating" [(value)]="value" required [(ngModel)]="userInputs.rating" [options]="options"
           style="margin-bottom: 4rem;"></ng5-slider>
+      </div>
+
+      <div class="invalid-check" *ngIf="rating.value == 0 && f.submitted">
+        <p>Please select a value between 1 - 10 </p>
       </div>
     </div>
 
