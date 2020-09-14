@@ -3,3 +3,6 @@ export class AppConfig {
   public static getLocations = '/admin/dashboard/getlocations';
   public static saveQuestionaire = "/admin/questionnaire/save";
 }
+
+// https://dev.nikecovidapp.com/nikembai/api/v1
+// https://nikecovidapp.com/nikembai/api/v1
