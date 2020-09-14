@@ -106,7 +106,7 @@ export class MbaiBodyComponent implements OnInit {
         // var actualDate = new Date(this.qrData.validity);
         // var  convertedDate = new Date(Date.UTC(actualDate.getFullYear(), actualDate.getMonth(), actualDate.getDate(), actualDate.getHours(), actualDate.getMinutes(), actualDate.getSeconds()))
         // var convertedToBrowserDate = convertedDate.toLocaleString() + ' ' + this.tzAbbr(convertedDate);
-        this.qrData.validity = dateTime.toLocaleString() + ' ' + shortTimeZone;
+        // this.qrData.validity = dateTime.toLocaleString() + ' ' + shortTimeZone;
         let status = this.qrData.isCleared ? 'Cleared' : 'Not Cleared'
         this.qrDataToDisplay = 'Employee Name : ' + this.qrData.employeeName + ', \n' + 'Status : ' + status + ', \n' + 'Valid till : ' + this.qrData.validity;
         this.qrCodeScanner = true

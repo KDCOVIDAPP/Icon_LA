@@ -389,3 +389,51 @@ label {
     padding: 2px 8px;
     font-size: 14px;
 }
+@media only screen and (max-width: 1023px) and (min-width: 768px) {
+  .content-zoom {
+    zoom: 1.8;
+}
+.custom-save {
+  font-size: 20px;
+}
+}
+@media only screen and (max-width: 1365px) and (min-width: 1024px) {
+  .content-zoom {
+    zoom: 2;
+}
+.custom-save {
+  font-size: 20px;
+}
+}
+@media only screen and (max-width: 1920px) and (min-width: 1366px) {
+  .content-zoom {
+    zoom: 2.1;
+}
+.custom-save {
+  font-size: 20px;
+}
+}
+@media only screen and (max-width: 2160px) and (min-width: 1921px) {
+  .content-zoom {
+    zoom: 2.5;
+}
+.custom-save {
+  font-size: 20px;
+}
+}
+@media only screen and (max-width: 2880px) and (min-width: 2161px) {
+  .content-zoom {
+    zoom: 3;
+}
+.custom-save {
+  font-size: 20px;
+}
+}
+@media only screen and (max-width: 4500px) and (min-width: 2881px) {
+  .content-zoom {
+    zoom: 3;
+}
+.custom-save {
+  font-size: 20px;
+}
+}
