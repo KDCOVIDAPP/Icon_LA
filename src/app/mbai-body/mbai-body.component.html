@@ -59,7 +59,7 @@
     </div>
 
     <div class="form-group">
-      <label>Have you tested positive or otherwise been diagnosed with COVID-19? </label>
+      <label>Have you tested positive or otherwise been diagnosed with COVID-19 within the past 14 days? </label>
       <div class="row check-css">
         <div class="form-check check-align">
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques1" #ques1="ngModel" name="ques1"
@@ -80,7 +80,7 @@
         <p>Please select a value</p>
       </div>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label>Have you been tested for COVID-19 and are awaiting your tested results?</label>
       <div class="row check-css">
         <div class="form-check check-align">
@@ -101,7 +101,7 @@
       <div class="invalid-check" *ngIf="ques2.value == null && f.submitted">
         <p>Please select a value</p>
       </div>
-    </div>
+    </div> -->
     <div class="form-group">
       <label>Have you had any of these symptoms in the past 14 days (SOURCE : CDC)?
         <br>FEVER, COUGH, SHORTNESS OF BREATH, CHILLS,MUSCLE ACHE, LOSS OF SMELL OR TASTE, HEADACHE OR SORE

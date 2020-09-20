@@ -40,9 +40,10 @@ export class MbaiBodyComponent implements OnInit {
       { value: 10, legend: 'Comfortable' }
     ]
   };
+  //     "ques2": "Have You Been Tested For COVID-19 And Are Awaiting Your Tested Results?",
+
   questionire = {
-    "ques1": "Have You Tested Positive Or Otherwise Been Diagnosed With COVID-19? ",
-    "ques2": "Have You Been Tested For COVID-19 And Are Awaiting Your Tested Results?",
+    "ques1": "Have You Tested Positive Or Otherwise Been Diagnosed With COVID-19 within the past 14 days ? ",
     "ques3": "Have You Had Any of These Symptoms In The Past 14 Days (SOURCE : CDC)? FEVER, COUGH, SHORTNESS OF BREATH, CHILLS,MUSCLE ACHE, LOSS OF SMELL OR TASTE, HEADACHE OR SORE THROAT",
     "ques4": "Have You Been In Contact With Anyone Displaying COVID-19 Symptoms Or Confirmed To Be COVID-19 Positive Within The Last 14 Days?",
     "ques5": "Do you agree to abide by Nike's safety precautions including but not limited to social distancing, wearing face coverings and hand sanitizing?",
