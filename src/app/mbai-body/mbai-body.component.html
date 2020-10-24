@@ -6,30 +6,35 @@
       <!-- <i class="fa fa-thermometer-empty fa-1x cardPic dash-icon-count" [ngStyle]="{'color': 'red'}" aria-hidden="true"></i>
       </i> -->
       <img width="40" style="padding: 6px 0px;" alt="thermometer" src="./assets/images/thermo.png" />
-      <div class="dashboard-card-Acc-head">Daily Health Questionnaire</div>
+      <div class="dashboard-card-Acc-head">{{mlc.HOME.TITLE}}</div>
 
 
     </div>
   </div>
-
+  <div class="form-group">
+    <label class="language-label">language</label>
+    <select class="language-select form-control" (change)="changeLanguage(selectedLanguage)" name="s1" [(ngModel)]="selectedLanguage">
+        <option *ngFor="let item of languages" [value]="item.code">{{item.name}}</option>
+    </select>
+</div>
   <form class="formMargin" name="form" (ngSubmit)="f.form.valid && rating.value != 0 && onSubmit()" #f="ngForm" novalidate
     *ngIf="locations.length > 0">
     <!--*ngIf="locations.length > 0"-->
     <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input type="text" class="form-control" placeholder="First Name" name="firstName"
+      <label for="firstName">{{mlc.HOME.FIRST_NAME}}</label>
+      <input type="text" class="form-control" placeholder= {{mlc.HOME.FIRST_NAME_PLACEHOLDER}} name="firstName"
         [(ngModel)]="userInputs.firstName" #firstName="ngModel"
         [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required />
       <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
-        <div *ngIf="firstName.errors.required">First Name is required</div>
+        <div *ngIf="firstName.errors.required">{{mlc.HOME.FIRST_NAME_VALIDATION}}</div>
       </div>
     </div>
     <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input type="text" class="form-control" placeholder="Last Name" name="lastName" [(ngModel)]="userInputs.lastName"
+      <label for="lastName">{{mlc.HOME.LAST_NAME}}</label>
+      <input type="text" class="form-control" placeholder={{mlc.HOME.LAST_NAME_PLACEHOLDER}} name="lastName" [(ngModel)]="userInputs.lastName"
         #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required />
       <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
-        <div *ngIf="lastName.errors.required">Last Name is required</div>
+        <div *ngIf="lastName.errors.required">{{mlc.HOME.LAST_NAME_VALIDATION}}</div>
       </div>
     </div>
     <!-- <div class="form-group">
@@ -43,7 +48,7 @@
     </div> -->
 
     <div class="form-group">
-      <label for="location">Location</label>
+      <label for="location">{{mlc.HOME.LOCATION}}</label>
       <!-- <input type="number" class="form-control" placeholder="Phone Number" name="phoneNumber" maxlength="10"
         minlength="10" [(ngModel)]="userInputs.phoneNumber" #phoneNumber="ngModel"
         [ngClass]="{ 'is-invalid': f.submitted && phoneNumber.invalid }" required /> -->
@@ -53,31 +58,31 @@
         <option *ngFor="let loc  of locations" [value]="loc.id">{{loc.locationName}}</option>
       </select>
       <div *ngIf="f.submitted && locationId.invalid" class="invalid-feedback">
-        <div *ngIf="locationId.errors.required ">Location is required</div>
+        <div *ngIf="locationId.errors.required ">{{mlc.HOME.LOCATION_VALIDATION}}</div>
         <!-- <div *ngIf="userInputs.phoneNumber.length != 10">phoneNumber must be a valid phoneNumber address</div> -->
       </div>
     </div>
 
     <div class="form-group">
-      <label>Have you tested positive or otherwise been diagnosed with COVID-19 within the past 14 days? </label>
+      <label>{{mlc.HOME.QUESTION_ONE}}</label>
       <div class="row check-css">
         <div class="form-check check-align">
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques1" #ques1="ngModel" name="ques1"
-            id="yes" value="yes">
+            id="yes" value="yes" required>
           <label class="form-check-label" for="yes">
-            Yes
+            {{mlc.HOME.YES}}
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques1" #ques1="ngModel" name="ques1"
-            id="no" value="no">
+            id="no" value="no" required>
           <label class="form-check-label" for="no">
-            No
+            {{mlc.HOME.NO}}
           </label>
         </div>
       </div>
       <div class="invalid-check" *ngIf="ques1.value == null && f.submitted">
-        <p>Please select a value</p>
+        <p>{{mlc.HOME.VALUE_VALIDATION}}</p>
       </div>
     </div>
     <!-- <div class="form-group">
@@ -87,97 +92,92 @@
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques2" #ques2="ngModel" name="ques2"
             id="yes" value="yes">
           <label class="form-check-label" for="yes">
-            Yes
+            {{mlc.HOME.YES}}
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques2" #ques2="ngModel" name="ques2"
             id="no" value="no">
           <label class="form-check-label" for="no">
-            No
+            {{mlc.HOME.NO}}
           </label>
         </div>
       </div>
       <div class="invalid-check" *ngIf="ques2.value == null && f.submitted">
-        <p>Please select a value</p>
+        <p>{{mlc.HOME.VALUE_VALIDATION}}</p>
       </div>
     </div> -->
     <div class="form-group">
-      <label>Have you had any of these symptoms in the past 14 days (SOURCE : CDC)?
-        <br>FEVER, COUGH, SHORTNESS OF BREATH, CHILLS,MUSCLE ACHE, LOSS OF SMELL OR TASTE, HEADACHE OR SORE
-        THROAT</label>
+      <label>{{mlc.HOME.QUESTION_TWO}}</label>
       <div class="row check-css">
         <div class="form-check check-align">
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques3" #ques3="ngModel" name="ques3"
-            id="yes" value="yes">
+            id="yes" value="yes" required>
           <label class="form-check-label" for="yes">
-            Yes
+            {{mlc.HOME.YES}}
           </label>
         </div>
         <div class="form-check ">
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques3" #ques3="ngModel" name="ques3"
-            id="no" value="no">
+            id="no" value="no" required>
           <label class="form-check-label" for="no">
-            No
+            {{mlc.HOME.NO}}
           </label>
         </div>
       </div>
       <div class="invalid-check" *ngIf="ques3.value == null && f.submitted">
-        <p>Please select a value</p>
+        <p>{{mlc.HOME.VALUE_VALIDATION}}</p>
       </div>
     </div>
 
     <div class="form-group">
-      <label>Have you been in contact with anyone displaying COVID-19 symptoms or confirmed to be COVID-19 positive
-        within the last 14 days?</label>
+      <label>{{mlc.HOME.QUESTION_THREE}}</label>
       <div class="row check-css">
         <div class="form-check check-align">
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques4" #ques4="ngModel" name="ques4"
-            id="yes" value="yes">
+            id="yes" value="yes" required>
           <label class="form-check-label" for="yes">
-            Yes
+            {{mlc.HOME.YES}}
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques4" #ques4="ngModel" name="ques4"
-            id="no" value="no">
+            id="no" value="no" required>
           <label class="form-check-label" for="no">
-            No
+            {{mlc.HOME.NO}}
           </label>
         </div>
       </div>
       <div class="invalid-check" *ngIf="ques4.value == null && f.submitted">
-        <p>Please select a value</p>
+        <p>{{mlc.HOME.VALUE_VALIDATION}}</p>
       </div>
     </div>
 
     <div class="form-group">
-      <label>Do you agree to abide by Nike's safety precautions including but not limited to social distancing, wearing
-        face coverings and hand sanitizing?</label>
+      <label>{{mlc.HOME.QUESTION_FOUR}}</label>
       <div class="row check-css">
         <div class="form-check check-align">
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques5" #ques5="ngModel" name="ques5"
-            id="yes" value="yes">
+            id="yes" value="yes" required>
           <label class="form-check-label" for="yes">
-            Yes
+            {{mlc.HOME.YES}}
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" [(ngModel)]="userInputs.ques5" #ques5="ngModel" name="ques5"
-            id="no" value="no">
+            id="no" value="no" required>
           <label class="form-check-label" for="no">
-            No
+            {{mlc.HOME.NO}}
           </label>
         </div>
       </div>
       <div class="invalid-check" *ngIf="ques5.value == null && f.submitted">
-        <p>Please select a value</p>
+        <p>{{mlc.HOME.VALUE_VALIDATION}}</p>
       </div>
     </div>
 
     <div class="form-group">
-      <label>How comfortable do you feel working in today's environment and the precautions Nike has put in
-        place?</label>
+      <label>{{mlc.HOME.QUESTION_FIVE}}</label>
       <div class="slidecontainer">
         <!-- <label> Not Comfortable</label>
         <input type="range" min="1" max="10" value="5" class="slider" [(ngModel)]="userInputs.rating" #myRange
@@ -191,27 +191,27 @@
       </div>
 
       <div class="invalid-check" *ngIf="rating.value == 0 && f.submitted">
-        <p>Please select a value between 1 - 10 </p>
+        <p>{{mlc.HOME.VALUE_VALIDATION_C}}</p>
       </div>
     </div>
 
     <div class="form-group">
-      <label>Suggestions</label>
-      <textarea type="text" maxlength="50" class="form-control" placeholder="Suggestions" name="suggestions"
+      <label>{{mlc.HOME.SUGGESTIONS}}</label>
+      <textarea type="text" maxlength="50" class="form-control" placeholder={{mlc.HOME.SUGGESTIONS_PLACEHOLDER}} name="suggestions"
         [(ngModel)]="userInputs.suggestions" #suggestions="ngModel"
         [ngClass]="{ 'is-invalid': f.submitted && suggestions.invalid }"></textarea>
       <div *ngIf="f.submitted && suggestions.invalid" class="invalid-feedback">
-        <div *ngIf="suggestions.errors.required ">suggestions is required</div>
+        <div *ngIf="suggestions.errors.required ">{{mlc.HOME.SUGGESTIONS_VALIDATION}}</div>
       </div>
     </div>
 
     <div class="form-group">
-      <button class="btn btn-primary custom-btn custom-primary" [disabled]="isSubmitted">Submit</button>
+      <button class="btn btn-primary custom-btn custom-primary" [disabled]="isSubmitted">{{mlc.HOME.SUBMIT}}</button>
     </div>
   </form>
 
   <div *ngIf="error">
-    <p class="error">Failed to fetch location details, Please try again later..!</p>
+    <p class="error">{{mlc.HOME.ERROR}}</p>
   </div>
 </div>
 <div *ngIf="qrCodeScanner">
@@ -221,23 +221,25 @@
   <div #screen class="content content-zoom" style="align-items: center;">
     <div style="text-align: center;" *ngIf="qrData.isCleared">
       <i class="fa fa-check cleared-css" aria-hidden="true"></i>
-      <h2 class="cleared-text">Cleared</h2>
+      <h2 class="cleared-text">{{mlc.HOME.CLEARED}}</h2>
     </div>
     <div style="text-align: center;" *ngIf="!qrData.isCleared">
       <i class="fa fa-times Notcleared-css" aria-hidden="true"></i>
-      <h2 class="notCleared-text">Not Cleared</h2>
+      <h2 class="notCleared-text">{{mlc.HOME.NOT_CLEARED}}</h2>
     </div>
     <qrcode [qrdata]="qrDataToDisplay" size="180" errorCorrectionLevel="'M'"></qrcode>
     <div class="qrUserValues">
-      <p>Name : {{qrData.employeeName}}</p>
-      <p>Status : {{qrData.isCleared ? 'Cleared' : 'Not Cleared'}}</p>
-      <p>Valid Till : {{qrData.validity}}</p>
+      <p>{{mlc.HOME.NAME}} : {{qrData.employeeName}}</p>
+      <!-- <p>{{mlc.HOME.STATUS}} : {{qrData.isCleared ? 'Cleared' : 'Not Cleared'}}</p> -->
+      <p *ngIf ="qrData.isCleared">{{mlc.HOME.STATUS}} : {{mlc.HOME.CLEARED}}</p>
+      <p *ngIf ="!qrData.isCleared">{{mlc.HOME.STATUS}} : {{mlc.HOME.NOT_CLEARED}}</p>
+      <p>{{mlc.HOME.VALID_TILL}} : {{qrData.validity}}</p>
 
     </div>
   </div>
 
   <div class="saveTo">
-    <button type="button" class="btn btn-primary custom-save" (click)="downloadjpg()">Save To Gallery</button>
+    <button type="button" class="btn btn-primary custom-save" (click)="downloadjpg()">{{mlc.HOME.SAVE_TO_GALLERY}}</button>
   </div>
   <div id="download" style="display: none;">
     <img #canvas>

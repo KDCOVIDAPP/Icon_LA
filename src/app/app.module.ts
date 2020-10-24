@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { NgxSliderModule } from '@m0t0r/ngx-slider';
 import { Ng5SliderModule } from 'ng5-slider';
+import { RxTranslateModule } from '@rxweb/translate';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,9 +27,13 @@ import { Ng5SliderModule } from 'ng5-slider';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     QRCodeModule,
-    Ng5SliderModule
+    Ng5SliderModule,
+    RxTranslateModule.forRoot({cacheLanguageWiseObject:true, cacheActiveLanguageObject:true,  preloadingStrategy:true,
+      filePath:"mbqlite/assets/i18n/{{language-code}}/{{translation-name}}.json",
+      }),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+// mbqlite/

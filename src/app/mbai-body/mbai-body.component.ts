@@ -5,6 +5,7 @@ import html2canvas from 'html2canvas';
 import { environment } from 'src/environments/environment';
 // import { Options } from '@m0t0r/ngx-slider';
 import { Options } from 'ng5-slider';
+import {  RxTranslateModule, RxTranslation, translate } from '@rxweb/translate';
 declare var Slider: any;
 
 
@@ -15,7 +16,10 @@ declare var Slider: any;
   styleUrls: ['./mbai-body.component.scss']
 })
 export class MbaiBodyComponent implements OnInit {
-
+  @translate({ translationName: "global" })
+  mlc: { [key: string]: any }
+  // @translate({ translationName: "" })
+  // mlc_common: { [key: string]: any }
   title = 'mHealthMobile';
   isSubmitted = false;
   public userInputs: User = new User();
@@ -60,10 +64,20 @@ export class MbaiBodyComponent implements OnInit {
   qrData: any;
   qrDataToDisplay: string;
   error: boolean = false;
-  constructor(private queSer: QuestionnaireService
-  ) {
+  selectedLanguage:any;
+  languages = [
+      {name: 'English', code: 'en'},
+      {name: 'Spanish', code: 'es'}
+  ]
+  constructor(private queSer: QuestionnaireService,private translate: RxTranslation) {
   }
   ngOnInit() {
+    if (localStorage.getItem('lang')) {
+      this.translate.change(localStorage.getItem('lang'));
+      this.selectedLanguage = localStorage.getItem('lang')
+    }else{
+      this.selectedLanguage = 'en'
+    }
     // this.userInputs.rating = 5;
     this.getLocations();
   }
@@ -193,6 +207,11 @@ export class MbaiBodyComponent implements OnInit {
 
     return tzAbbr;
   };
+  changeLanguage(languageCode: string) {
+    console.log('rxtran', RxTranslation)
+    localStorage.setItem('lang', languageCode)
+    this.translate.change(languageCode);
+}
 
 
 }
