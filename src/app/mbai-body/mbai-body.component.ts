@@ -51,6 +51,7 @@ export class MbaiBodyComponent implements OnInit {
     "ques3": "Have You Had Any of These Symptoms In The Past 14 Days (SOURCE : CDC)? FEVER, COUGH, SHORTNESS OF BREATH, CHILLS,MUSCLE ACHE, LOSS OF SMELL OR TASTE, HEADACHE OR SORE THROAT",
     "ques4": "Have You Been In Contact With Anyone Displaying COVID-19 Symptoms Or Confirmed To Be COVID-19 Positive Within The Last 14 Days?",
     "ques5": "Do you agree to abide by Nike's safety precautions including but not limited to social distancing, wearing face coverings and hand sanitizing?",
+    "ques6": "Have you or someone in your household tested positive for COVID-19 or are awaiting results within the last 72 hours? (Excluding corporate employees testing for traveling purposes to abide by Nike/DHL’s safety precaution)"
   }
   locations: any[] = [];
   @ViewChild('screen') screen: ElementRef;

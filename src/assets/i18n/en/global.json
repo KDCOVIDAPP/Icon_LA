@@ -9,6 +9,7 @@
       "QUESTION_THREE" : "Have You Been In Contact With Anyone Displaying COVID-19 Symptoms Or Confirmed To Be COVID-19 Positive Within The Last 14 Days?",
       "QUESTION_FOUR" : "Do you agree to abide by Nike's safety precautions including but not limited to social distancing, wearing face coverings and hand sanitizing?",
       "QUESTION_FIVE" : "HOW COMFORTABLE DO YOU FEEL WORKING IN TODAY'S ENVIRONMENT AND THE PRECAUTIONS NIKE HAS PUT IN PLACE?",
+      "QUESTION_SIX" : "Have you or someone in your household tested positive for COVID-19 or are awaiting results within the last 72 hours? (Excluding corporate employees testing for traveling purposes to abide by Nike/DHL’s safety precaution)",
       "SUGGESTIONS" : "SUGGESTIONS",
       "YES" : "YES",
       "NO" : "NO",

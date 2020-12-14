@@ -9,6 +9,7 @@
       "QUESTION_THREE" : "¿Has estado en contacto con alguien que ha sido diagnosticado o ha tenido los síntomas de COVID-19 durante los últimos 14 días?",
       "QUESTION_FOUR" : "¿Estas de acuerdo en seguir las precauciones marcadas por NIKE las cuales incluyen, pero no se limitan a distancia social, uso de máscara cubre boca y gel antibacterial de manos?",
       "QUESTION_FIVE" : "¿Qué tan cómodo te sientes trabajando para NIKE durante el ambiente actual considerando las precauciones implementadas?",
+      "QUESTION_SIX" : "¿Usted o alguien de su hogar ha dado positivo por COVID-19 o está esperando los resultados en las últimas 72 horas? (Excluidos los empleados corporativos que realizan pruebas con fines de viaje para cumplir con las precauciones de seguridad de Nike / DHL)",
       "SUGGESTIONS" : "SUGERENCIAS",
       "YES" : "SI",
       "NO" : "NO",
@@ -36,4 +37,3 @@
       "A_NUMBER": "A number"
     }
   }
-  
