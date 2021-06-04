@@ -29,7 +29,7 @@ import { RxTranslateModule } from '@rxweb/translate';
     QRCodeModule,
     Ng5SliderModule,
     RxTranslateModule.forRoot({cacheLanguageWiseObject:true, cacheActiveLanguageObject:true,  preloadingStrategy:true,
-      filePath:"mbqlite/assets/i18n/{{language-code}}/{{translation-name}}.json",
+      filePath:"hokalite/assets/i18n/{{language-code}}/{{translation-name}}.json",
       }),
   ],
   providers: [],
@@ -37,3 +37,5 @@ import { RxTranslateModule } from '@rxweb/translate';
 })
 export class AppModule { }
 // mbqlite/
+// nike-icon/
+// hokalite

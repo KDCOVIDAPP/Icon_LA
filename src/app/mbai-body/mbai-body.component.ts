@@ -27,6 +27,8 @@ export class MbaiBodyComponent implements OnInit {
   public myAngularxQrCode: string = null;
   public qrCodeScanner: boolean = false;
   public qrCodeCleared: boolean = false;
+  initialLoc:any
+  employeeVal : boolean = false;
   value: number;
   options: Options = {
     showTicksValues: true,
@@ -46,12 +48,21 @@ export class MbaiBodyComponent implements OnInit {
   };
   //     "ques2": "Have You Been Tested For COVID-19 And Are Awaiting Your Tested Results?",
 
-  questionire = {
+  questionire1 = {
     "ques1": "Have You Tested Positive Or Otherwise Been Diagnosed With COVID-19 within the past 14 days ? ",
     "ques3": "Have You Had Any of These Symptoms In The Past 14 Days (SOURCE : CDC)? FEVER, COUGH, SHORTNESS OF BREATH, CHILLS,MUSCLE ACHE, LOSS OF SMELL OR TASTE, HEADACHE OR SORE THROAT",
     "ques4": "Have You Been In Contact With Anyone Displaying COVID-19 Symptoms Or Confirmed To Be COVID-19 Positive Within The Last 14 Days?",
     "ques5": "Do you agree to abide by Nike's safety precautions including but not limited to social distancing, wearing face coverings and hand sanitizing?",
     "ques6": "Have you or someone in your household tested positive for COVID-19 or are awaiting results within the last 72 hours? (Excluding corporate employees testing for traveling purposes to abide by Nike/DHL’s safety precaution)"
+  }
+  questionire2 = {
+    "ques1": "Have You Tested Positive Or Otherwise Been Diagnosed With COVID-19 within the past 14 days ? ",
+    // "ques2": "Have you taken the daily Covid antigen test and received a negative result?",
+    "ques3": "Have You Had Any of These Symptoms In The Past 14 Days (SOURCE : CDC)? FEVER, COUGH, SHORTNESS OF BREATH, CHILLS,MUSCLE ACHE, LOSS OF SMELL OR TASTE, HEADACHE OR SORE THROAT",
+    "ques4": "Have You Been In Contact With Anyone Displaying COVID-19 Symptoms Or Confirmed To Be COVID-19 Positive Within The Last 14 Days?",
+    "ques5": "Do you agree to abide by Nike's safety precautions including but not limited to social distancing, wearing face coverings and hand sanitizing?",
+    "ques6": "Have you or someone in your household tested positive for COVID-19 or are awaiting results within the last 72 hours? (Excluding corporate employees testing for traveling purposes to abide by Nike/DHL’s safety precaution)",
+    "ques7": "HAVE YOU BEEN ASKED TO QUARANTINE BY A GOVERNMENT, PUBLIC HEALTH AUTHORITY OR YOUR EMPLOYER BECAUSE OF TRAVEL OR POTENTIAL EXPOSURE?"
   }
   locations: any[] = [];
   @ViewChild('screen') screen: ElementRef;
@@ -70,6 +81,10 @@ export class MbaiBodyComponent implements OnInit {
       {name: 'English', code: 'en'},
       {name: 'Spanish', code: 'es'}
   ]
+  selectedLoc: any;
+  validUntil: string;
+  validUntilTimeZone: string;
+  newQuesValue: any;
   constructor(private queSer: QuestionnaireService,private translate: RxTranslation) {
   }
   ngOnInit() {
@@ -80,7 +95,7 @@ export class MbaiBodyComponent implements OnInit {
       this.selectedLanguage = 'en'
     }
     // this.userInputs.rating = 5;
-    this.getLocations();
+    // this.getLocations();
   }
   sliderRange(eve) {
     console.log(eve);
@@ -92,10 +107,11 @@ export class MbaiBodyComponent implements OnInit {
     let date = new Date();
     let dateTime = new Date(new Date(date).getTime() + 60 * 60 * 24 * 1000);
     let shortTimeZone = this.tzAbbr(dateTime);
+    this.validUntil = undefined
 
     var req = {
-      "accountId": environment.accountId,
-      "locationId": this.userInputs.locationId,
+      "accountId": 2050,
+      "locationId": 2074,
       "firstName": this.userInputs.firstName,
       "lastName": this.userInputs.lastName,
       "phoneNumber": this.userInputs.phoneNumber,
@@ -103,59 +119,43 @@ export class MbaiBodyComponent implements OnInit {
       "suggestions": this.userInputs.suggestions,
       //"userTimeZone": dateTime.toString()
     };
-    let questionResponse = [];
-    Object.keys(this.questionire).forEach(q => {
-      let obj = {
-        "question": this.questionire[q],
-        "response": this.userInputs[q]
-      }
-      questionResponse.push(obj)
-    });
-    req["questionResponse"] = questionResponse;
-    console.log(req);
 
+      let questionResponse = [];
+      Object.keys(this.questionire2).forEach((q,i) => {
+        let obj
+        if(i == 3){
+        obj = {
+         "question": this.questionire2[q],
+         "response": (this.userInputs.ques2 == 'yes' && this.userInputs[q] == 'yes') ? 'yes' : 'no'
+       }
+     }
+      else{
+        obj = {
+          "question": this.questionire2[q],
+          "response":  this.userInputs[q]
+        }
+      }
+        questionResponse.push(obj)
+      });
+      req["questionResponse"] = questionResponse;
+      console.log(req);
     this.queSer.saveQuestionaire(req).subscribe((res: any) => {
       if (res.statusCode != 500) {
         console.log(res);
         this.qrData = res;
-
-        // var actualDate = new Date(this.qrData.validity);
-        // var  convertedDate = new Date(Date.UTC(actualDate.getFullYear(), actualDate.getMonth(), actualDate.getDate(), actualDate.getHours(), actualDate.getMinutes(), actualDate.getSeconds()))
-        // var convertedToBrowserDate = convertedDate.toLocaleString() + ' ' + this.tzAbbr(convertedDate);
-        // this.qrData.validity = dateTime.toLocaleString() + ' ' + shortTimeZone;
+        let validDatee = res.validity ? new Date(res.validity.split(/[ ,]+/).join('T') + 'Z').toLocaleString() : ''
+        this.validUntil = validDatee.split(',')[0];
+        this.validUntilTimeZone =  new Date(validDatee).toTimeString()
         let status = this.qrData.isCleared ? 'Cleared' : 'Not Cleared'
         this.qrDataToDisplay = 'Employee Name : ' + this.qrData.employeeName + ', \n' + 'Status : ' + status + ', \n' + 'Valid till : ' + this.qrData.validity;
         this.qrCodeScanner = true
       } else {
         this.qrCodeScanner = false;
       }
-
     })
-    // document.write("<b>" + hoursIST + ":" + minutesIST + " " + "</b>")
   }
 
-  // getLocations() {
-  //     if (localStorage.getItem('locations')) {
-  //       this.locations = JSON.parse(localStorage.getItem('locations'));
-  //       console.log(this.locations);
-
-  //       this.userInputs.locationId = this.locations.length > 0 ? this.locations[0].id : undefined;
-  //     } else {
-  //       this.locations = [];
-  //     }
-
-  // }
-
   getLocations() {
-    // if (localStorage.getItem('locations')) {
-    //   this.locations = JSON.parse(localStorage.getItem('locations'));
-    //   console.log(this.locations);
-
-    //   this.userInputs.locationId = this.locations.length > 0 ? this.locations[0].id : undefined;
-    // } else {
-    //   this.locations = [];
-    // }
-
     this.queSer.getLocations().subscribe((res: any) => {
       if (res.status != 'Failure') {
 
@@ -172,15 +172,6 @@ export class MbaiBodyComponent implements OnInit {
     })
 
   }
-
-  // downloadpng(){
-  //   html2canvas(this.screen.nativeElement).then(canvas => {
-  //     this.canvas.nativeElement.src = canvas.toDataURL();
-  //     this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
-  //     this.downloadLink.nativeElement.download = 'MBAI-Qr-scan.png';
-  //     this.downloadLink.nativeElement.click();
-  //   });
-  // }
   downloadjpg() {
     html2canvas(this.screen.nativeElement).then(canvas => {
       this.canvas.nativeElement.src = canvas.toDataURL();
@@ -213,12 +204,13 @@ export class MbaiBodyComponent implements OnInit {
     localStorage.setItem('lang', languageCode)
     this.translate.change(languageCode);
 }
-
-
+onFormPage(){
+  // if(this.initialLoc != undefined){
+  this.employeeVal = true;
+  this.qrCodeScanner = false
+  this.initialLoc = "NIKE-ICON.LA"
+  // }
 }
 
 
-  //   this.questionire = [
-  //   {"quesValue" : this.userInputs.ques1},{"quesValue" : this.userInputs.ques2},
-  //   {"quesValue" : this.userInputs.ques2},{"quesValue" : this.userInputs.ques4}
-  // ]
+}

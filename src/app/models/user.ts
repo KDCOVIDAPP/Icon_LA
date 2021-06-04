@@ -9,6 +9,7 @@ export class User {
     ques4 : any;
     ques5 : any;
     ques6 : any;
+    ques7 : any;
     rating : any;
     suggestions : any;
 }
