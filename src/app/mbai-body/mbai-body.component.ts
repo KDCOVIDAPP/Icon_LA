@@ -123,18 +123,18 @@ export class MbaiBodyComponent implements OnInit {
       let questionResponse = [];
       Object.keys(this.questionire2).forEach((q,i) => {
         let obj
-        if(i == 3){
-        obj = {
-         "question": this.questionire2[q],
-         "response": (this.userInputs.ques2 == 'yes' && this.userInputs[q] == 'yes') ? 'yes' : 'no'
-       }
-     }
-      else{
+    //     if(i == 3){
+    //     obj = {
+    //      "question": this.questionire2[q],
+    //      "response": (this.userInputs.ques2 == 'yes' && this.userInputs[q] == 'yes') ? 'yes' : 'no'
+    //    }
+    //  }
+    //   else{
         obj = {
           "question": this.questionire2[q],
           "response":  this.userInputs[q]
         }
-      }
+      // }
         questionResponse.push(obj)
       });
       req["questionResponse"] = questionResponse;
@@ -145,7 +145,7 @@ export class MbaiBodyComponent implements OnInit {
         this.qrData = res;
         let validDatee = res.validity ? new Date(res.validity.split(/[ ,]+/).join('T') + 'Z').toLocaleString() : ''
         this.validUntil = validDatee.split(',')[0];
-        this.validUntilTimeZone =  new Date(validDatee).toTimeString()
+        this.validUntilTimeZone =  new Date(res.validity+'Z').toTimeString()
         let status = this.qrData.isCleared ? 'Cleared' : 'Not Cleared'
         this.qrDataToDisplay = 'Employee Name : ' + this.qrData.employeeName + ', \n' + 'Status : ' + status + ', \n' + 'Valid till : ' + this.qrData.validity;
         this.qrCodeScanner = true
